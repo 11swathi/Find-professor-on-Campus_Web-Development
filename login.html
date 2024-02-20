@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+<link rel="stylesheet" type="text/css" href="3.css">
+<style>
+body {
+  margin: 0;
+  font-family: Helvetica, sans-serif;
+                 background-image: url(ff.jpg);
+                    background-position: right;
+                    background-repeat: no-repeat;
+                    background-attachment: fixed;
+                
+}
+
+
+h1
+{
+          color:azure;
+          font-family:ink free;
+          font-size:70px;
+         text-align:center;
+          margin-right:350px;
+ }
+</style>
+</head>
+<body>
+	
+<div class="reg">
+
+<h2>LOGIN</h2>
+<form name="RegForm" method="post" action="findthem.html" onsubmit="return stop()" >
+	<p>USERNAME</p>
+<input type="text" name="name" id="un" placeholder="enter username" required />
+<p>PASSWORD</p>
+<input type="password" id="pass" name="password2" placeholder="enter password" required />
+
+<input type="submit" name="reg" value="LOGIN" />
+</div>
+</form>
+
+<script>
+	var t1=document.getElementById("un");
+	var t2=document.getElementById("pass");
+	function stop()
+	{
+		if(t1.value=="abc")
+		{
+			if(t2.value=="123")
+			{
+			
+				return true;
+			}
+			else
+			{
+				window.alert("WRONG PASSWORD");
+				return false;
+			}
+		}
+		window.alert("ENTER VALID USER NAME");
+		
+		return false;
+	}
+</script>
+
+</body>
+</html>

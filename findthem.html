@@ -1,0 +1,181 @@
+<?php
+require_once("db.php");
+$db_handle=new Db();
+?>
+<html>
+<head>
+	<title>Find Them!</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+	.header {
+  background-color: black;
+  padding: 20px;
+  text-align: left;
+}
+h1{
+	color:white;
+	font-family:calibra;
+}
+.right{
+	float:right;
+	padding: 0px 10px 0px 20px;
+}
+select {
+                    padding: 12px 20px;
+                    box-sizing: border-box;
+                    border: 3px solid #232247;
+                    border-radius: 15px;
+                    background-color: white;
+                    color: black;
+                    font-family: courier;
+                    font-size: 80%;
+                }
+           td{
+           	padding: 5px 20px;
+           }
+           .line{
+           	border-left: 4px dashed grey;
+           	height: 85%;
+           	position:absolute;
+           	left:63%;
+           	top:100px;
+           }
+input{
+	padding:12px 20px;
+}
+ .container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+.container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+#left{
+	float: left;
+
+}
+.pad{
+	margin:  50px;
+}
+	</style>
+	<script>
+		function getstaff(val)
+		{
+			$.ajax({
+				type:"POST",
+				url:"department.php",
+				data:'dept='+val,
+				success:function(data)
+				{
+					$("#staff").html(data);
+				}
+
+			});
+		}
+	</script>
+</head>
+<body>
+<div class="header">
+  <h1>Find Them!</h1>
+</div>
+<br/>
+<p id="left"><iframe src="https://www.google.co.in/maps/place/Kongu+Engineering+College/@11.2741632,77.6048386,17z/data=!3m1!4b1!4m5!3m4!1s0x3ba96d7810fe32d5:0x85cf49c5b26fb72e!8m2!3d11.2741632!4d77.6070273" width="930px" height="630px" frameborder="0" style="border:0" ></iframe></p>
+<div class="line"></div>
+<form action="" method="post">
+<div class="right">
+	<table>
+
+		<tr><td>
+<label><font color="#232247" size="5"><b>Department:</b></font></label>           <select name="dep" id="dep" onChange="getstaff(this.value);">
+			<option>CSE</option>
+			<option>ECE</option>
+			<option>IT</option>
+			<option>EIE</option>
+			<option>Mechanical</option>
+			<option>Civil</option>
+			<option>Automobile</option>
+			<option>EEE</option>
+			<option>Food Tech</option>
+			<option>Chemical</option>
+			<option>Mechatronics</option>
+		<?php
+			$query= "select * from staff";
+			$esults=$db_handle->runQuery($query);
+			foreach($results as $dep)  {
+		?>
+		<option value="<?php echo $dep["name"];?>"><?php echo $dep["department"];?></option>
+		</select></td><td>
+
+<label><font color="#232247" size="5"><b>Staff:</b></font></label>           
+	<select name>
+			<option>Wait!</option></select></td></tr></table>
+<div class="pad"><label><font size="5">STATUS:</font></label>
+	<label class="container">
+		<input type="radio" name="status" checked="checked" value="absent"/>ABSENT
+		<span class="checkmark"></span></label>
+		<label class="container">
+		<input type="radio" name="status" value="present"/>PRESENT
+		<span class="checkmark"></span>
+	</label> 
+<br/><br/>
+<label ><font size="5">CURRENT HOUR:</font></label>
+	<label class="container">BUSY
+		<input type="radio" name="hour" checked="checked" value="busy"/>
+		<span class="checkmark"></span>
+	</label>
+	<label class="container">FREE
+		<input type="radio" name="hour" value="free"/>
+		<span class="checkmark"></span>
+ 	</label></div>
+		</div>
+</form>
+
+	
+
+</body>
+</html>
